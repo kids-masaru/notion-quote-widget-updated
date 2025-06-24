@@ -1,4 +1,4 @@
-// Vercelサーバーレス関数 - Notion APIから名言を取得
+// Vercelサーバーレス関数 - Notion APIから単語を取得
 const { Client } = require('@notionhq/client');
 require('dotenv').config();
 
@@ -56,7 +56,7 @@ module.exports = async (req, res) => {
       auth: notionApiKey,
     });
 
-    // データベースからすべての名言を取得
+    // データベースからすべての単語を取得
     const response = await notion.databases.query({
       database_id: notionDatabaseId,
     });
@@ -66,14 +66,14 @@ module.exports = async (req, res) => {
       return res.status(404).json({ error: 'No quotes found in the database' });
     }
 
-    // ランダムに1つの名言を選択
+    // ランダムに1つの単語を選択
     const randomIndex = Math.floor(Math.random() * response.results.length);
     const randomQuote = response.results[randomIndex];
 
     // Notionのデータ構造から必要な情報を抽出
     const quoteData = {
-      // タイトル（名言本文）を取得
-      quote: randomQuote.properties.title?.title?.[0]?.plain_text || '名言が見つかりません',
+      // タイトル（単語本文）を取得
+      quote: randomQuote.properties.title?.title?.[0]?.plain_text || '単語が見つかりません',
       
       // 分類情報を取得（存在する場合）
       category: randomQuote.properties['分類']?.select?.name || '',
