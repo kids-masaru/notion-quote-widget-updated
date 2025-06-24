@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>今日の名言</title>
+  <title>今日の単語</title>
   <style>
     :root {
       --primary-color: #3a7bd5;
@@ -310,12 +310,12 @@
 <body>
   <div class="quote-container" id="quote-container">
     <div class="quote-header">
-      今日の名言
+      今日の単語
       <div class="settings-icon" id="settings-icon" title="設定"></div>
     </div>
     <div id="quote-content">
       <div class="setup-container" id="setup-container">
-        <h2 class="setup-title">Notion名言ウィジェットへようこそ</h2>
+        <h2 class="setup-title">Notion単語ウィジェットへようこそ</h2>
         <p class="setup-description">
           このウィジェットを使用するには、NotionのAPIキーとデータベースIDが必要です。<br>
           「設定」ボタンをクリックして、必要な情報を入力してください。
@@ -434,7 +434,7 @@
       // モーダルを閉じる
       closeSettingsModal();
       
-      // 名言を取得
+      // 単語を取得
       fetchQuote(apiKey, databaseId);
     }
     
@@ -450,7 +450,7 @@
       });
     }
     
-    // 名言を取得して表示する関数
+    // 単語を取得して表示する関数
     async function fetchQuote(apiKey, databaseId) {
       // 認証情報がない場合は設定画面を表示
       if (!apiKey || !databaseId) {
@@ -468,7 +468,7 @@
       quoteContentElement.innerHTML = `
         <div class="loading">
           <div class="loading-spinner"></div>
-          <p>名言を取得中...</p>
+          <p>単語を取得中...</p>
         </div>
       `;
       
@@ -485,7 +485,7 @@
         // JSONデータを解析
         const data = await response.json();
         
-        // 名言を表示
+        // 単語を表示
         quoteContentElement.innerHTML = `
           <div class="quote-body">
             ${data.category ? `<div class="quote-category">${data.category}</div>` : ''}
@@ -501,7 +501,7 @@
         // エラー表示
         quoteContentElement.innerHTML = `
           <div class="error-message">
-            <p>名言の取得に失敗しました</p>
+            <p>単語の取得に失敗しました</p>
             <p>${error.message}</p>
             <button class="refresh-button" onclick="fetchQuote('${apiKey}', '${databaseId}')" style="margin-top: 15px;">再試行</button>
             <button class="btn btn-secondary" onclick="openSettingsModal()" style="margin-top: 15px; margin-left: 10px;">設定を変更</button>
@@ -514,7 +514,7 @@
     // 設定アイコンのクリックイベント
     settingsIcon.addEventListener('click', openSettingsModal);
     
-    // ページ読み込み時に名言を取得
+    // ページ読み込み時に単語を取得
     document.addEventListener('DOMContentLoaded', () => {
       fetchQuote();
     });
